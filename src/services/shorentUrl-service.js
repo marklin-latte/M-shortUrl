@@ -3,6 +3,7 @@ const globalIdCache = require('../caches/globalId-cache');
 const shortenUrlCache = require('../caches/shortenUrl-cache');
 const parser = require('../../libs/base62-pareser');
 const ResoureNotFindError = require('../errors/resourceNotFind-error');
+const bloomFilter = require("../bloomFilter");
 
 module.exports = {
     /**
@@ -13,13 +14,14 @@ module.exports = {
     async generateShortKey(originUrl){
         const globalId = await globalIdCache.getId(); 
         const shortenKey = parser.encode(globalId);
-        // todo:add to bloom filter
+
         await shortenUrlModel.insertShortenURL({
             baseId: globalId,
             originUrl,
             key: shortenKey
         });
         await shortenUrlCache.set(shortenKey, originUrl);
+        bloomFilter.add(shortenKey);
         return shortenKey;
     },
     /**
@@ -28,7 +30,11 @@ module.exports = {
      * @returns {String} origin url
      */
     async getOriginUrl(shortUrlKey){
-        // todo: bool filter check 
+
+        if(!bloomFilter.check(shortUrlKey)){
+            throw new ResoureNotFindError("the short url is not find");
+        }
+
         const cache = await shortenUrlCache.get(shortUrlKey);
         if(cache){
             shortenUrlCache.updateEmpireTime(shortUrlKey);

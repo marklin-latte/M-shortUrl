@@ -40,6 +40,7 @@ module.exports = {
             }, (err, res) => {
                 if(err) reject(err);
 
+                client.close();
                 resolve(res);
             });
         });

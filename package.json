@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/h091237557/M-shortUrl#readme",
   "dependencies": {
+    "bloomfilter": "0.0.18",
     "koa": "^2.12.0",
     "koa-bodyparser": "^4.3.0",
     "koa-router": "^8.0.8",
