@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  web:
+    image: node:10
+    volumes:
+      - ./:/app
+    ports:
+      - "3000:3000"
+    working_dir: /app
+    command: npm run start 
+    environment:
+      - MONGODB_HOST=mongo
+      - MONGODB_PORT=27017
+      - MONGODB_DBNAME=testing
+      - MONGODB_USER=root
+      - MONGODB_PWD=123456789
+      - REDIS_HOST=cache
+      - REDIS_PORT=6379
+      - NODE_ENV=development
+    links:
+      - "cache"
+      - "mongo"
+  cache:
+    image: redis:6
+    ports:
+      - "6379"
+  mongo:
+    image: mongo:4
+    ports:
+      - "27017"
+    environment:
+     - MONGO_INITDB_DATABASE=testing
+     - MONGO_INITDB_ROOT_USERNAME=root
+     - MONGO_INITDB_ROOT_PASSWORD=123456789
+    volumes:
+     - ./migration/mongodb/init.js:/docker-entrypoint-initdb.d/init.js:ro

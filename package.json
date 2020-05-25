@@ -1,0 +1,33 @@
+{
+  "name": "m-shorturl",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "npx mocha test/**/*.test.js --exit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/h091237557/M-shortUrl.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/h091237557/M-shortUrl/issues"
+  },
+  "homepage": "https://github.com/h091237557/M-shortUrl#readme",
+  "dependencies": {
+    "koa": "^2.12.0",
+    "koa-bodyparser": "^4.3.0",
+    "koa-router": "^8.0.8",
+    "mongodb": "^3.5.7",
+    "redis": "^3.0.2"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^7.2.0",
+    "should": "^13.2.3",
+    "supertest": "^4.0.2"
+  }
+}
