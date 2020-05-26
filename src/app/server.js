@@ -4,6 +4,7 @@ const bodyParser = require("koa-bodyparser");
 const configs = require("../../config");
 const shortUrlService = require("../services/shortenUrl-service"); 
 const errorHandlerMiddleware = require("../app/middlewares/errorHandler-middleware");
+const ResourceInvalidError = require("../errors/resourceInvalid-error"); 
 
 const app = new Koa();
 const router = new Router();
@@ -13,6 +14,10 @@ app.use(errorHandlerMiddleware);
 router
     .post("/shortenUrls",async  ctx => {
         const { originUrl } = ctx.request.body;
+        if(!originUrl){
+            throw new ResourceInvalidError("the post entiry error");
+        }
+
         const shortenKey = await shortUrlService.generateShortKey(originUrl);
         const shortenUrl = `${configs.baseShortUrl.host}/${shortenKey}`;
         ctx.status = 200;

@@ -32,7 +32,14 @@ describe("Shorten Url Spec test", () => {
     it('should get 400 http code, when register a invalid long url', async () => {
         const invalidUrl = "abcdefg";
         const registerLongUrlRes = await request.post("/shortenUrls")
-                                .send({ invalidUrl })
+                                .send({ originUrl: invalidUrl })
+                                .set('Accept', "application/json");
+
+        registerLongUrlRes.status.should.equal(400);
+    });
+    it('should get 400 http code, when post error resource', async () => {
+        const registerLongUrlRes = await request.post("/shortenUrls")
+                                .send({ "abc": "hi" })
                                 .set('Accept', "application/json");
 
         registerLongUrlRes.status.should.equal(400);

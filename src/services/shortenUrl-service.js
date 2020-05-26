@@ -6,7 +6,7 @@ const bloomFilterCache = require("../caches/bloomFilter-cache");
 const parser = require("../../libs/base62-parser");
 const validations = require("../../libs/validation-tool");
 
-const ResoureNotFindError = require("../errors/resourceNotFind-error");
+const ResourceNotFindError = require("../errors/resourceNotFind-error");
 const ResourceInvalidError = require("../errors/resourceInvalid-error");
 
 module.exports = {
@@ -42,7 +42,7 @@ module.exports = {
     async getOriginUrl(shortUrlKey){
 
         if(!bloomFilterCache.check(shortUrlKey)){
-            throw new ResoureNotFindError("the short url is not find");
+            throw new ResourceNotFindError("the short url is not find");
         }
 
         const cache = await shortenUrlCache.get(shortUrlKey);
@@ -53,7 +53,7 @@ module.exports = {
 
         const res = await shortenUrlModel.getOriginUrl(shortUrlKey); 
         if(!res){
-            throw new ResoureNotFindError("the short url is not find");
+            throw new ResourceNotFindError("the short url is not find");
         }
 
         await shortenUrlCache.setCache(shortenKey, res.originUrl);
