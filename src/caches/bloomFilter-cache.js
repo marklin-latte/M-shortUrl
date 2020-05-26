@@ -5,6 +5,10 @@ const bloom = new BloomFilter(
     16        // number of hash functions.
   );
 
+/*
+I was goint to use redis bloom filter. but the nodejs redis lib not support.
+So I use the lib with memory bloom filter instead.
+*/
 module.exports = {
     add: (element) => {
         bloom.add(element);
