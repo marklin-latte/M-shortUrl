@@ -4,10 +4,11 @@ A shorten Url service.
 
 ## Using 
 
+* Docker
 * Nodejs V10.15.3
 * Koa
-* MongoDB V4
-* Redis V6
+* MongoDB 4
+* Redis 6
 * Docker
 
 ## Quick Start
@@ -25,7 +26,7 @@ docker-compose up
 ```
 curl -X POST -H "Content-Type: application/json" -d '{"originUrl" : "https://github.com/"}' 127.0.0.1:3000/shortenUrls
 
-{"shortenUrl":"127.0.0.1:3000/shortenUrls/kI"
+{"shortenUrl":"127.0.0.1:3000/shortenUrls/kI"}
 ```
 
 ### Redirect Long Url
@@ -39,7 +40,7 @@ Redirecting to <a href="https://github.com/">https://github.com/</a>
 ### Test
 
 ```
-npm run test
+npm run docker-test
 ```
 
 ## RESTful API
